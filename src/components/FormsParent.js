@@ -7,8 +7,11 @@ const FormsParent = () => {
   const [first, setFirst] = useState("");
   const [firstError, setFirstError] = useState(" ");
   const [last, setLast] = useState("");
+  const [lastError, setLastError] = useState(" ");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(" ");
   const [confirm, setConfirm] = useState("");
+  const [confirmError, setConfirmError] = useState(" ");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,9 +31,20 @@ const FormsParent = () => {
     if (e.target.value.length < 1) {
       setFirstError(" ");
     } else if (e.target.value.length < 3) {
-      setFirstError("The First Name must have at least 3 characters or more");
+      setFirstError("The First Name must be at least 3 characters or more");
     } else {
       setFirstError("");
+    }
+  };
+
+  const handleLast = (e) => {
+    setLast(e.target.value);
+    if (e.target.value.length < 1) {
+      setLastError(" ");
+    } else if (e.target.value.length >= 3) {
+      setLastError("");
+    } else if (e.target.value.length > 0 || e.target.value.length < 3) {
+      setLastError("Your last name must be at least 3 characters or more");
     }
   };
 
@@ -46,6 +60,28 @@ const FormsParent = () => {
       setEmailError("");
     } else if (e.target.value.length > 5 || e.target.value.length < 5) {
       setEmailError("The Email is invalid");
+    }
+  };
+
+  const handlePass = (e) => {
+    setPassword(e.target.value);
+    if (e.target.value.length < 1) {
+      setPasswordError(" ");
+    } else if (e.target.value.length > 8) {
+      setPasswordError("");
+    } else if (e.target.value.length < 8 || e.target.value.length > 0) {
+      setPasswordError("Your password must be at least 8 characters or more");
+    }
+  };
+
+  const handleConfirm = (e) => {
+    setConfirm(e.target.value);
+    if (e.target.value.length < 1) {
+      setConfirmError(" ");
+    } else if (password === e.target.value) {
+      setConfirmError("");
+    } else if (e.target.value.length < 8 || e.target.value.length > 0) {
+      setConfirmError("The passwords don't match");
     }
   };
 
@@ -76,10 +112,12 @@ const FormsParent = () => {
               <input
                 placeholder="Last Name"
                 value={last}
-                onChange={(e) => setLast(e.target.value)}
+                onChange={handleLast}
                 name="LastName"
                 required
               />
+              <br />
+              {lastError ? <label className="error">{lastError}</label> : ""}
               <div className="input-container">
                 <input
                   placeholder="Email"
@@ -96,23 +134,34 @@ const FormsParent = () => {
                   ""
                 )}
               </div>
-
               <input
                 placeholder="Password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handlePass}
                 name="password"
                 required
               />
+              <br/>
+              {passwordError ? (
+                  <label className="error">{passwordError}</label>
+                ) : (
+                  ""
+                )}
               <input
                 placeholder="Confirm Password"
                 value={confirm}
-                onChange={(e) => setConfirm(e.target.value)}
+                onChange={handleConfirm}
                 name="ConfirmPass"
                 required
               />
+              <br/>
+              {confirmError ? (
+                  <label className="error">{confirmError}</label>
+                ) : (
+                  ""
+                )}
               <br />
-              {!emailError && !firstError ? (
+              {!emailError && !firstError && !lastError && !passwordError && !confirmError ? (
                 <button type="submit" className="enabled">
                   Submit
                 </button>
