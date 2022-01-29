@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <h1>More forms !</h1>
-      <FormsParent/>
+      <FormsParent />
     </div>
   );
 }

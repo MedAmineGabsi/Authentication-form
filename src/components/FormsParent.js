@@ -2,15 +2,17 @@ import React, { useState } from "react";
 
 const FormsParent = () => {
   const [hasBeenSubmited, setSubmit] = useState(false);
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(" ");
+
   const [first, setFirst] = useState("");
-  const [firstError, setFirstError] = useState(" ");
   const [last, setLast] = useState("");
-  const [lastError, setLastError] = useState(" ");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(" ");
   const [confirm, setConfirm] = useState("");
+
+  const [firstError, setFirstError] = useState(" ");
+  const [lastError, setLastError] = useState(" ");
+  const [emailError, setEmailError] = useState(" ");
+  const [passwordError, setPasswordError] = useState(" ");
   const [confirmError, setConfirmError] = useState(" ");
 
   const handleSubmit = (e) => {
@@ -141,12 +143,12 @@ const FormsParent = () => {
                 name="password"
                 required
               />
-              <br/>
+              <br />
               {passwordError ? (
-                  <label className="error">{passwordError}</label>
-                ) : (
-                  ""
-                )}
+                <label className="error">{passwordError}</label>
+              ) : (
+                ""
+              )}
               <input
                 placeholder="Confirm Password"
                 value={confirm}
@@ -154,14 +156,18 @@ const FormsParent = () => {
                 name="ConfirmPass"
                 required
               />
-              <br/>
-              {confirmError ? (
-                  <label className="error">{confirmError}</label>
-                ) : (
-                  ""
-                )}
               <br />
-              {!emailError && !firstError && !lastError && !passwordError && !confirmError ? (
+              {confirmError ? (
+                <label className="error">{confirmError}</label>
+              ) : (
+                ""
+              )}
+              <br />
+              {!emailError &&
+              !firstError &&
+              !lastError &&
+              !passwordError &&
+              !confirmError ? (
                 <button type="submit" className="enabled">
                   Submit
                 </button>
